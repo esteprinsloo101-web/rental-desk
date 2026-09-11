@@ -4,10 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0b1220" />
-  <meta name="description" content="Rental Desk — SA small landlord case manager. Sample data. Not legal advice." />
+  <meta name="description" content="Rental Desk — SA small landlord case manager. Sample ZAR data. Not legal or financial advice." />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Rental Desk" />
   <title>Rental Desk · Case Manager</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230ea5e9'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-size='13' font-family='sans-serif' font-weight='800' fill='%23082f49'%3ERD%3C/text%3E%3C/svg%3E" />
 </head>
@@ -26,6 +29,17 @@
         <button type="button" class="icon-btn" id="btn-info" title="About" aria-label="About">ℹ</button>
       </div>
     </header>
+
+    <div class="install-banner hidden" id="install-banner" role="region" aria-label="Install app">
+      <div class="install-banner-body">
+        <strong>Add Rental Desk to Home Screen</strong>
+        <span>Works offline for the app shell · Reminds you of rent → handover → snags → deposit</span>
+      </div>
+      <div class="install-banner-actions">
+        <button type="button" class="btn btn-ghost btn-sm" id="btn-install-dismiss">Not now</button>
+        <button type="button" class="btn btn-primary btn-sm" id="btn-install">Install</button>
+      </div>
+    </div>
 
     <main class="main" id="main">
       <section class="view active" id="view-today" data-view="today">
@@ -46,13 +60,21 @@
             <div class="stat-label">Arrears</div>
           </div>
         </div>
+        <div class="card mb-12" id="pipeline-loop-card">
+          <div class="card-head"><h3>Case cash / evidence loop</h3><span class="badge teal">rent → handover → snags → deposit</span></div>
+          <div class="loop-track" id="loop-track" aria-label="Rent, handover, snags, deposit status"></div>
+          <p style="font-size:13px;color:var(--muted);margin-top:8px">ProcessRunner wizards only — not checklists. You <strong>Approve</strong> deposit release; app does not move money or file at the Tribunal.</p>
+        </div>
         <div class="card mb-12">
           <div class="card-head"><h3>Due processes</h3><span class="badge muted">tap to run</span></div>
           <div class="list" id="today-queue"></div>
         </div>
         <div class="card mb-12">
-          <div class="card-head"><h3>Next reminders</h3><span class="badge info">auto</span></div>
+          <div class="card-head"><h3>Next reminders</h3><span class="badge info" id="reminder-badge">auto</span></div>
           <div id="reminder-panel"></div>
+          <div class="btn-row" style="margin-top:10px">
+            <button type="button" class="btn btn-ghost btn-block" id="btn-enable-notifs">Enable notifications</button>
+          </div>
         </div>
         <div class="card mb-12">
           <div class="card-head"><h3>Recent completions</h3><span class="badge muted">history</span></div>
@@ -61,7 +83,7 @@
         <div class="btn-row mb-12">
           <button type="button" class="btn btn-ghost btn-block" id="btn-add-process-today">+ Add recurring process</button>
         </div>
-        <p class="disclaimer">Not legal advice · Demo sample data only · App prepares evidence packs — you Approve deductions / Tribunal sends. Does not file at Rental Housing Tribunal for you.</p>
+        <p class="disclaimer">NOT legal or financial advice · Demo sample ZAR data only · App prepares chases &amp; evidence packs — you Approve deposit release &amp; Tribunal sends. Does not file at Rental Housing Tribunal for you.</p>
       </section>
 
       <section class="view" id="view-units" data-view="units">
@@ -72,19 +94,19 @@
           </div>
         </div>
         <div class="list" id="units-list"></div>
-        <p class="disclaimer">Demo units · Not a lease register.</p>
+        <p class="disclaimer">Demo units · Not a lease register · NOT legal advice.</p>
       </section>
 
       <section class="view" id="view-cases" data-view="cases">
         <div class="view-title">
           <div>
             <h2>Cases</h2>
-            <p class="sub">Rent · exit · snags</p>
+            <p class="sub">Rent · exit · snags · deposit</p>
           </div>
         </div>
         <div class="pill-row" id="case-pills"></div>
         <div class="list" id="cases-list"></div>
-        <p class="disclaimer">Case runner is ops aid · Not legal representation.</p>
+        <p class="disclaimer">Case runner is ops aid · NOT legal representation or financial advice.</p>
       </section>
 
       <section class="view" id="view-money" data-view="money">
@@ -112,7 +134,7 @@
           <div class="card-head"><h3>Deposits held</h3></div>
           <div id="deposits-list"></div>
         </div>
-        <p class="disclaimer">Not financial advice · Confirm bank statements yourself.</p>
+        <p class="disclaimer">NOT financial advice · Confirm bank statements yourself · You Approve deposit release.</p>
       </section>
 
       <section class="view" id="view-more" data-view="more">
@@ -124,7 +146,7 @@
         <button type="button" class="back-link" data-nav="more">← More</button>
         <div class="view-title"><div><h2>Tenants / leases</h2><p class="sub">Active · ending</p></div></div>
         <div class="list" id="tenants-list"></div>
-        <p class="disclaimer">Not a lease drafting tool · Not legal advice.</p>
+        <p class="disclaimer">Not a lease drafting tool · NOT legal or financial advice.</p>
       </section>
 
       <section class="view" id="view-snags" data-view="snags">
@@ -137,19 +159,19 @@
         <button type="button" class="back-link" data-nav="more">← More</button>
         <div class="view-title"><div><h2>Docs</h2><p class="sub">Leases · packs · evidence</p></div></div>
         <div class="list" id="docs-list"></div>
-        <p class="disclaimer">Demo vault · Metadata only.</p>
+        <p class="disclaimer">Demo vault · Metadata only · NOT legal advice.</p>
       </section>
 
       <section class="view" id="view-settings" data-view="settings">
         <button type="button" class="back-link" data-nav="more">← More</button>
-        <div class="view-title"><div><h2>Settings</h2><p class="sub">Modules · processes</p></div></div>
+        <div class="view-title"><div><h2>Settings</h2><p class="sub">Modules · reminders · backup</p></div></div>
         <div class="card mb-12">
           <div class="card-head"><h3>Module toggles</h3><span class="badge teal">adaptable</span></div>
           <div class="toggle-list" id="module-toggles"></div>
         </div>
         <div class="card mb-12">
           <div class="card-head"><h3>Recurring processes</h3><span class="badge teal">wizard</span></div>
-          <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Guided ProcessRunner — rent due, inspection, deposit close, snag close. Add tenant payment links.</p>
+          <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Rent → handover evidence → snags → deposit. Guided ProcessRunner — not checklists. Add tenant payment links. You Approve deposit release.</p>
           <div class="list" id="process-list"></div>
           <button type="button" class="btn btn-primary btn-block" id="btn-add-process" style="margin-top:10px">+ Add process</button>
         </div>
@@ -157,11 +179,44 @@
           <div class="card-head"><h3>Completion history</h3></div>
           <div id="history-list-full"></div>
         </div>
+        <div class="card mb-12">
+          <div class="card-head"><h3>Reminders</h3><span class="badge teal">v1</span></div>
+          <p style="font-size:14px;color:var(--muted);margin-bottom:10px">Browser notifications for due processes when the app is open. Quiet hours skip alerts.</p>
+          <div class="form-row"><label for="quiet-start">Quiet hours start</label>
+            <input type="number" id="quiet-start" min="0" max="23" step="1" inputmode="numeric" placeholder="21" />
+          </div>
+          <div class="form-row"><label for="quiet-end">Quiet hours end</label>
+            <input type="number" id="quiet-end" min="0" max="23" step="1" inputmode="numeric" placeholder="7" />
+          </div>
+          <label class="toggle-row" style="margin-bottom:10px">
+            <div>
+              <div class="t-label">Allow reminder alerts</div>
+              <div class="t-meta">Uses Notification API when granted</div>
+            </div>
+            <div class="switch">
+              <input type="checkbox" id="pref-notifs" />
+              <span class="slider"></span>
+            </div>
+          </label>
+          <div class="btn-row">
+            <button type="button" class="btn btn-ghost btn-block" id="btn-request-notifs">Request notification permission</button>
+          </div>
+          <p id="notif-status" style="font-size:13px;color:var(--muted);margin-top:8px"></p>
+        </div>
+        <div class="card mb-12">
+          <div class="card-head"><h3>Backup</h3><span class="badge muted">JSON</span></div>
+          <p style="font-size:14px;color:var(--muted);margin-bottom:10px">Export or import app state from localStorage (units, cases, ledger, processes, history, modules, prefs).</p>
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary btn-block" id="btn-export-json">Export JSON</button>
+            <button type="button" class="btn btn-ghost btn-block" id="btn-import-json">Import JSON</button>
+          </div>
+          <input type="file" id="import-file" accept="application/json,.json" class="hidden" />
+        </div>
         <div class="card">
           <div class="card-head"><h3>Demo</h3></div>
           <button type="button" class="btn btn-danger btn-block" id="btn-reset-2">Reset all demo data</button>
         </div>
-        <p class="disclaimer">localStorage · Not legal advice.</p>
+        <p class="disclaimer">localStorage key rental-desk-v4 · NOT legal or financial advice · Installable PWA · You Approve deposit release.</p>
       </section>
     
       <section class="view" id="view-science" data-view="science">
@@ -183,7 +238,7 @@
           <p style="font-size:15px;color:var(--text-dim);margin-bottom:10px">Occupancy coach planned. See AEGIS Science Desk for the paid methods pattern.</p>
           <a class="btn btn-ghost btn-block" href="https://esteprinsloo101-web.github.io/aegis-floodwatch/desk.html" target="_blank" rel="noopener">AEGIS Science Desk pattern</a>
         </div>
-        <p class="disclaimer">Not legal advice. Rental Desk is ops aid for rent, evidence packs, and snags — not a lease attorney.</p>
+        <p class="disclaimer">NOT legal or financial advice. Rental Desk is ops aid for rent, evidence packs, and snags — not a lease attorney.</p>
       </section>
 
     </main>
@@ -229,7 +284,7 @@
         </select>
       </div>
       <button type="button" class="btn btn-primary btn-block" id="ob-save">Save &amp; continue</button>
-      <p class="disclaimer" style="margin-top:12px">Stored on this device only · Not advice</p>
+      <p class="disclaimer" style="margin-top:12px">Stored on this device only · NOT legal or financial advice</p>
     </div>
   </div>
 
@@ -247,5 +302,12 @@
   </div>
 
   <script src="app.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("./service-worker.js").catch(function () {});
+      });
+    }
+  </script>
 </body>
 </html>
