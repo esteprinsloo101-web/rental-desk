@@ -41,3 +41,6 @@ Storage key: `rental-desk-v1`
 ## Disclaimer
 
 Demo only. Not legal advice. Does **not** file at the Rental Housing Tribunal or act as your attorney.
+
+## Update 2026-09-11
+Platform bar 2026-09-11: Science Desk occupancy/arrears tips, elderly UI, location+purpose onboarding.
