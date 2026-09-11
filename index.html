@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b1220" />
+  <meta name="description" content="Rental Desk — SA small landlord case manager. Sample data. Not legal advice." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Rental Desk · Case Manager</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230ea5e9'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-size='13' font-family='sans-serif' font-weight='800' fill='%23082f49'%3ERD%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <div class="app" id="app">
+    <header class="header">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">RD</div>
+        <div class="brand-text">
+          <h1>Rental Desk</h1>
+          <p>Botha Rentals · Bloemfontein</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button type="button" class="icon-btn" id="btn-reset" title="Reset demo" aria-label="Reset demo">↺</button>
+        <button type="button" class="icon-btn" id="btn-info" title="About" aria-label="About">ℹ</button>
+      </div>
+    </header>
+
+    <main class="main" id="main">
+      <section class="view active" id="view-today" data-view="today">
+        <div class="view-title">
+          <div>
+            <h2>Today</h2>
+            <p class="sub">Cases due · <span id="today-date"></span></p>
+          </div>
+          <span class="badge teal" id="today-count"><span class="dot"></span> 0 due</span>
+        </div>
+        <div class="grid grid-2 mb-12">
+          <div class="card kpi">
+            <div class="stat-value teal" id="kpi-occ">0%</div>
+            <div class="stat-label">Occupancy</div>
+          </div>
+          <div class="card kpi">
+            <div class="stat-value amber" id="kpi-arrears">R0</div>
+            <div class="stat-label">Arrears</div>
+          </div>
+        </div>
+        <div class="card mb-12">
+          <div class="card-head"><h3>Due processes</h3><span class="badge muted">tap to run</span></div>
+          <div class="list" id="today-queue"></div>
+        </div>
+        <div class="card mb-12">
+          <div class="card-head"><h3>Next reminders</h3><span class="badge info">auto</span></div>
+          <div id="reminder-panel"></div>
+        </div>
+        <div class="card mb-12">
+          <div class="card-head"><h3>Recent completions</h3><span class="badge muted">history</span></div>
+          <div id="history-panel"></div>
+        </div>
+        <div class="btn-row mb-12">
+          <button type="button" class="btn btn-ghost btn-block" id="btn-add-process-today">+ Add recurring process</button>
+        </div>
+        <p class="disclaimer">Not legal advice · Demo sample data only · App prepares evidence packs — you Approve deductions / Tribunal sends. Does not file at Rental Housing Tribunal for you.</p>
+      </section>
+
+      <section class="view" id="view-units" data-view="units">
+        <div class="view-title">
+          <div>
+            <h2>Properties / units</h2>
+            <p class="sub">Portfolio sketch</p>
+          </div>
+        </div>
+        <div class="list" id="units-list"></div>
+        <p class="disclaimer">Demo units · Not a lease register.</p>
+      </section>
+
+      <section class="view" id="view-cases" data-view="cases">
+        <div class="view-title">
+          <div>
+            <h2>Cases</h2>
+            <p class="sub">Rent · exit · snags</p>
+          </div>
+        </div>
+        <div class="pill-row" id="case-pills"></div>
+        <div class="list" id="cases-list"></div>
+        <p class="disclaimer">Case runner is ops aid · Not legal representation.</p>
+      </section>
+
+      <section class="view" id="view-money" data-view="money">
+        <div class="view-title">
+          <div>
+            <h2>Money</h2>
+            <p class="sub">Rent · deposits · arrears</p>
+          </div>
+        </div>
+        <div class="grid grid-2 mb-12">
+          <div class="card kpi">
+            <div class="stat-value green" id="money-collected">R0</div>
+            <div class="stat-label">Collected (mo)</div>
+          </div>
+          <div class="card kpi">
+            <div class="stat-value amber" id="money-due">R0</div>
+            <div class="stat-label">Still due</div>
+          </div>
+        </div>
+        <div class="card mb-12">
+          <div class="card-head"><h3>Rent ledger</h3><span class="badge muted">ZAR</span></div>
+          <div id="rent-ledger"></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>Deposits held</h3></div>
+          <div id="deposits-list"></div>
+        </div>
+        <p class="disclaimer">Not financial advice · Confirm bank statements yourself.</p>
+      </section>
+
+      <section class="view" id="view-more" data-view="more">
+        <div class="view-title"><div><h2>More</h2><p class="sub">Modules · settings</p></div></div>
+        <div class="more-grid" id="more-grid"></div>
+      </section>
+
+      <section class="view" id="view-tenants" data-view="tenants">
+        <button type="button" class="back-link" data-nav="more">← More</button>
+        <div class="view-title"><div><h2>Tenants / leases</h2><p class="sub">Active · ending</p></div></div>
+        <div class="list" id="tenants-list"></div>
+        <p class="disclaimer">Not a lease drafting tool · Not legal advice.</p>
+      </section>
+
+      <section class="view" id="view-snags" data-view="snags">
+        <button type="button" class="back-link" data-nav="more">← More</button>
+        <div class="view-title"><div><h2>Snags / repairs</h2><p class="sub">Open tickets</p></div></div>
+        <div class="list" id="snags-list"></div>
+      </section>
+
+      <section class="view" id="view-docs" data-view="docs">
+        <button type="button" class="back-link" data-nav="more">← More</button>
+        <div class="view-title"><div><h2>Docs</h2><p class="sub">Leases · packs · evidence</p></div></div>
+        <div class="list" id="docs-list"></div>
+        <p class="disclaimer">Demo vault · Metadata only.</p>
+      </section>
+
+      <section class="view" id="view-settings" data-view="settings">
+        <button type="button" class="back-link" data-nav="more">← More</button>
+        <div class="view-title"><div><h2>Settings</h2><p class="sub">Modules · processes</p></div></div>
+        <div class="card mb-12">
+          <div class="card-head"><h3>Module toggles</h3><span class="badge teal">adaptable</span></div>
+          <div class="toggle-list" id="module-toggles"></div>
+        </div>
+        <div class="card mb-12">
+          <div class="card-head"><h3>Recurring processes</h3><span class="badge teal">wizard</span></div>
+          <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Guided ProcessRunner — rent due, inspection, deposit close, snag close. Add tenant payment links.</p>
+          <div class="list" id="process-list"></div>
+          <button type="button" class="btn btn-primary btn-block" id="btn-add-process" style="margin-top:10px">+ Add process</button>
+        </div>
+        <div class="card mb-12">
+          <div class="card-head"><h3>Completion history</h3></div>
+          <div id="history-list-full"></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>Demo</h3></div>
+          <button type="button" class="btn btn-danger btn-block" id="btn-reset-2">Reset all demo data</button>
+        </div>
+        <p class="disclaimer">localStorage · Not legal advice.</p>
+      </section>
+    </main>
+
+    <nav class="nav" id="bottom-nav" aria-label="Primary">
+      <button type="button" class="active" data-nav="today"><span class="nav-ico" aria-hidden="true">◎</span>Today</button>
+      <button type="button" data-nav="units" data-mod="units"><span class="nav-ico" aria-hidden="true">⌂</span>Units</button>
+      <button type="button" data-nav="cases" data-mod="cases"><span class="nav-ico" aria-hidden="true">📁</span>Cases</button>
+      <button type="button" data-nav="money" data-mod="money"><span class="nav-ico" aria-hidden="true">R</span>Money</button>
+      <button type="button" data-nav="more"><span class="nav-ico" aria-hidden="true">☰</span>More</button>
+    </nav>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+  <div class="modal-backdrop" id="modal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <h3 id="modal-title">About</h3>
+      <div id="modal-body"></div>
+      <button type="button" class="btn btn-primary btn-block" id="modal-close" style="margin-top:12px">Close</button>
+    </div>
+  </div>
+
+  <div class="pr-overlay" id="process-runner" aria-hidden="true">
+    <div class="pr-sheet" role="dialog" aria-modal="true" aria-labelledby="pr-title">
+      <div class="pr-head">
+        <button type="button" class="icon-btn" id="pr-close" aria-label="Close wizard">✕</button>
+        <h3 id="pr-title">Process</h3>
+        <span class="badge muted" id="pr-badge">1/1</span>
+      </div>
+      <div class="pr-stepper" id="pr-stepper" aria-hidden="true"></div>
+      <div class="pr-body" id="pr-body"></div>
+      <div class="pr-actions" id="pr-actions"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
