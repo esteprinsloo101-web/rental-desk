@@ -6,25 +6,6 @@
   "use strict";
 
   const STORAGE_KEY = "rental-desk-v4";
-
-  /* PLATFORM_BAR_2026_09_11 */
-  const SCIENCE_TIPS = [
-  {
-    "h": "Arrears chase day",
-    "body": "Pick one fixed weekday for all rent chases. Log response rate for 4 weeks.",
-    "method": "Method: cadence batching \u00b7 Limit: tenant situations differ"
-  },
-  {
-    "h": "Handover photo set",
-    "body": "Use the same 8 photo slots every move-out. Fewer deposit disputes.",
-    "method": "Method: checklist standard \u00b7 Limit: not legal advice"
-  },
-  {
-    "h": "Snag SLA",
-    "body": "Close open snags >7 days first. Measure average open days before/after.",
-    "method": "Method: WIP limit \u00b7 Limit: contractor supply delays"
-  }
-];
   const PURPOSE_MODULE_PRESETS = {
   "rentals": {
     "units": true,
@@ -32,63 +13,56 @@
     "money": true,
     "tenants": true,
     "snags": true,
-    "docs": true,
-    "science": true
-  },
+    "docs": true
+      },
   "household": {
     "units": false,
     "cases": false,
     "money": true,
     "tenants": false,
     "snags": true,
-    "docs": true,
-    "science": true
-  },
+    "docs": true
+      },
   "farm": {
     "units": true,
     "cases": true,
     "money": true,
     "tenants": true,
     "snags": true,
-    "docs": true,
-    "science": true
-  },
+    "docs": true
+      },
   "trade": {
     "units": true,
     "cases": true,
     "money": true,
     "tenants": true,
     "snags": true,
-    "docs": true,
-    "science": true
-  },
+    "docs": true
+      },
   "stokvel": {
     "units": false,
     "cases": false,
     "money": true,
     "tenants": false,
     "snags": false,
-    "docs": true,
-    "science": true
-  },
+    "docs": true
+      },
   "flood": {
     "units": true,
     "cases": false,
     "money": false,
     "tenants": false,
     "snags": true,
-    "docs": true,
-    "science": true
-  },
+    "docs": true
+      },
   "decisions": {
     "units": true,
     "cases": true,
     "money": true,
     "tenants": true,
     "snags": false,
-    "docs": true,
-    "science": true
-  }
+    "docs": true
+      }
 };
 
   const TZ = "Africa/Johannesburg";
@@ -159,7 +133,6 @@
 
   const DEFAULT_MODULES = {
     units: true, cases: true, money: true, tenants: true, snags: true, docs: true,
-    science: true,
   };
 
   function defaultPrefs() {
@@ -675,7 +648,6 @@
       { id: "tenants", mod: "tenants", icon: "👥", title: "Tenants / leases", meta: "Active · ending soon" },
       { id: "snags", mod: "snags", icon: "🔧", title: "Snags / repairs", meta: "Open tickets" },
       { id: "docs", mod: "docs", icon: "📄", title: "Docs", meta: "Leases · evidence packs" },
-      { id: "science", mod: "science", icon: "🔬", title: "Science Desk", meta: "Weekly tips · methods" },
       { id: "settings", mod: null, icon: "⚙", title: "Settings", meta: "Modules · reminders · backup" },
     ];
     $("#more-grid").innerHTML = items.filter((i) => !i.mod || state.modules[i.mod]).map((i) => `
@@ -741,7 +713,7 @@
     const ps = document.getElementById("profile-summary");
     if (ps && state.profile) ps.textContent = (state.profile.city || "—") + " · " + (state.profile.purpose || "—");
 
-    const labels = { units: "Properties / units", cases: "Cases", money: "Money", tenants: "Tenants / leases", snags: "Snags / repairs", docs: "Docs", science: "Science Desk"
+    const labels = { units: "Properties / units", cases: "Cases", money: "Money", tenants: "Tenants / leases", snags: "Snags / repairs", docs: "Docs"
     };
     $("#module-toggles").innerHTML = Object.keys(DEFAULT_MODULES).map((k) => `
       <label class="toggle-row">
@@ -773,7 +745,6 @@
 
   function render() {
     renderNavVisibility();
-    if (currentView === "science") renderScience();
     renderToday();
     if (state.modules.units) renderUnits();
     if (state.modules.cases) renderCases();
@@ -1043,13 +1014,6 @@
 
   
   /* PLATFORM_BAR_2026_09_11 helpers */
-  function renderScience() {
-    const root = document.getElementById("science-tips");
-    if (!root) return;
-    root.innerHTML = SCIENCE_TIPS.map((t) =>
-      '<div class="science-tip"><h4>' + esc(t.h) + '</h4><p>' + esc(t.body) + '</p><div class="method">' + esc(t.method) + '</div></div>'
-    ).join("");
-  }
 
   function applyPurposeModules(purpose) {
     const preset = PURPOSE_MODULE_PRESETS[purpose];
