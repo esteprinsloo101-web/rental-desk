@@ -23,7 +23,6 @@ Shared DNA with [Life Desk](https://esteprinsloo101-web.github.io/life-desk/) an
 | **Tenants / leases** | Active leases · ending soon |
 | **Snags / repairs** | Open tickets · contractor chase |
 | **Docs** | Leases · evidence packs |
-| **Science Desk** | Weekly improve tips (methods + limits) |
 | **Settings** | Modules · quiet hours · notifications · export/import |
 
 ## Process types (ProcessRunner — not checklists)
@@ -77,7 +76,7 @@ Storage key: `rental-desk-v4`
 3. Run **Rent** → finish → if exit unit, handover appears due; run **Handover** → snag unlocks; run **Snag** → deposit unlocks; run **Deposit** (**Approve deductions** + **Approve deposit release**).
 4. **Settings** — quiet hours; request notifications; **Export JSON** then **Import JSON**.
 5. DevTools → Application → Manifest + Service Worker (`rental-desk-shell-v1`); optional: go offline and confirm shell still loads.
-6. Keep **Science Desk** + elderly UI (large type / 48px taps) from platform bar.
+6. Keep elderly UI (large type / 48px taps) from platform bar.
 7. `curl -I https://esteprinsloo101-web.github.io/rental-desk/` after Pages deploy from `main`.
 
 ## Disclaimer
@@ -86,6 +85,6 @@ Demo / sample data only. **NOT** legal or financial advice. Rental Desk does **n
 
 ## Update 2026-09-11
 
-Platform bar: Science Desk, elderly UI, location+purpose onboarding.
+Platform bar: elderly UI, location+purpose onboarding.
 
-**feat/pwa-reminders-export:** PWA manifest + service worker shell cache (`rental-desk-shell-v1`), install affordance, reminders v1 (notifications + quiet hours + post-Done schedule), JSON export/import backup, stronger rent → handover → snags → deposit ProcessRunner loops with Approve on deposit release, Science Desk stub kept.
+**feat/pwa-reminders-export:** PWA manifest + service worker shell cache (`rental-desk-shell-v1`), install affordance, reminders v1 (notifications + quiet hours + post-Done schedule), JSON export/import backup, stronger rent → handover → snags → deposit ProcessRunner loops with Approve on deposit release.
