@@ -1,16 +1,19 @@
 # Rental Desk
 
-**Rental Desk** is a polished, mobile-first static web demo of a South African **small landlord case manager**.
+**Rental Desk** is a mobile-first **free try of the live Gumroad** South African **small landlord case manager**.
 
-Sample portfolio: **Botha Rentals · Bloemfontein**. Demo / sample ZAR data only. **NOT** legal or financial advice.
+Sample portfolio: **Botha Rentals · Bloemfontein**. Sample ZAR data only. **NOT** legal or financial advice.
+
+**Buy live unlock (Gumroad):** [Rental Desk — R179](https://stofficial.gumroad.com/l/qgbunm)  
+Also: [Stokvel OS — R99](https://stofficial.gumroad.com/l/ydbgne).
 
 Shared DNA with [Life Desk](https://esteprinsloo101-web.github.io/life-desk/) and [Trade Desk](https://esteprinsloo101-web.github.io/trade-desk/): the app **reminds, chases, prepares, closes**; human **Approves** deposit release / deductions / Tribunal-oriented packs. Installable as a **PWA** (Add to Home Screen) with an offline-ish shell cache.
 
-## Live URL
+## Free try (live)
 
 **https://esteprinsloo101-web.github.io/rental-desk/**
 
-(GitHub Pages from `main`; allow a minute after push for deploy.)
+GitHub Pages from `main` (allow a minute after merge for deploy). Paid unlock: [Gumroad R179](https://stofficial.gumroad.com/l/qgbunm).
 
 ## Modules
 
@@ -39,7 +42,7 @@ Click outstanding → wizard → Done → set **next due** → item returns to T
 1. Open the live URL or local server in Chrome / Edge / Safari.
 2. Use **Install** / **Add to Home Screen** when the banner appears (or browser menu).
 3. On iOS Safari: Share → **Add to Home Screen**.
-4. The service worker caches the shell: `index.html`, `app.js`, `styles.css`, `manifest.webmanifest` (+ icons). Cache name: **`rental-desk-shell-v1`**. Offline use is **shell-only** — open the app once online first.
+4. The service worker caches the shell: `index.html`, `app.js`, `styles.css`, `manifest.webmanifest` (+ icons). Cache name: **`rental-desk-shell-v2`**. Offline use is **shell-only** — open the app once online first.
 
 ## Reminders v1
 
@@ -75,16 +78,16 @@ Storage key: `rental-desk-v4`
 2. **Today** — confirm case loop (rent → handover → snags → deposit), due processes, reminders, occupancy/arrears KPIs.
 3. Run **Rent** → finish → if exit unit, handover appears due; run **Handover** → snag unlocks; run **Snag** → deposit unlocks; run **Deposit** (**Approve deductions** + **Approve deposit release**).
 4. **Settings** — quiet hours; request notifications; **Export JSON** then **Import JSON**.
-5. DevTools → Application → Manifest + Service Worker (`rental-desk-shell-v1`); optional: go offline and confirm shell still loads.
+5. DevTools → Application → Manifest + Service Worker (`rental-desk-shell-v2`); optional: go offline and confirm shell still loads.
 6. Keep elderly UI (large type / 48px taps) from platform bar.
 7. `curl -I https://esteprinsloo101-web.github.io/rental-desk/` after Pages deploy from `main`.
 
 ## Disclaimer
 
-Demo / sample data only. **NOT** legal or financial advice. Rental Desk does **not** file at the Rental Housing Tribunal, draft leases, or move money for you. **You Approve** irreversible money steps (deductions, deposit release). Confirm real-world compliance yourself.
+Free try / sample data only. **NOT** legal or financial advice. Rental Desk does **not** file at the Rental Housing Tribunal, draft leases, or move money for you. **You Approve** irreversible money steps (deductions, deposit release). Confirm real-world compliance yourself.
 
 ## Update 2026-09-11
 
 Platform bar: elderly UI, location+purpose onboarding.
 
-**feat/pwa-reminders-export:** PWA manifest + service worker shell cache (`rental-desk-shell-v1`), install affordance, reminders v1 (notifications + quiet hours + post-Done schedule), JSON export/import backup, stronger rent → handover → snags → deposit ProcessRunner loops with Approve on deposit release.
+**feat/pwa-reminders-export:** PWA manifest + service worker shell cache (`rental-desk-shell-v2`), install affordance, reminders v1 (notifications + quiet hours + post-Done schedule), JSON export/import backup, stronger rent → handover → snags → deposit ProcessRunner loops with Approve on deposit release.

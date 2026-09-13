@@ -1071,14 +1071,14 @@
 
 
   function resetDemo() {
-    if (!confirm("Reset all Rental Desk demo data?")) return;
+    if (!confirm("Reset all Rental Desk sample data?")) return;
     Object.keys(reminderTimers).forEach(clearReminderTimer);
     state = seed();
     save();
     showView("today");
     updateInstallBanner();
     rescheduleAllReminders();
-    toast("Demo reset");
+    toast("Sample data reset");
   }
 
   document.getElementById("bottom-nav").addEventListener("click", (e) => {
@@ -1096,10 +1096,10 @@
   $("#btn-reset").addEventListener("click", resetDemo);
   $("#btn-reset-2").addEventListener("click", resetDemo);
   $("#btn-info").addEventListener("click", () => openModal("About Rental Desk",
-    `<p><strong>Rental Desk</strong> is a mobile-first demo for a small SA landlord / agent (1–20 units).</p>
+    `<p><strong>Rental Desk</strong> is a free try of the live Gumroad small SA landlord / agent case manager (1–20 units).</p>
      <p>Treat rent, exit/handover, snags and deposit as <strong>cases</strong> with guided ProcessRunner loop: <strong>rent → handover → snags → deposit</strong>.</p>
      <p>Sample: Botha Rentals, Bloemfontein. Installable PWA · JSON backup in Settings.</p>
-     <p style="font-size:12px;color:var(--muted)">NOT legal or financial advice. Does not file at the Rental Housing Tribunal or move money — you Approve deposit release.</p>`));
+     <p style="font-size:12px;color:var(--muted)">NOT legal or financial advice. Does not file at the Rental Housing Tribunal or move money — you Approve deposit release. Buy live unlock: <a href="https://stofficial.gumroad.com/l/qgbunm" target="_blank" rel="noopener">Gumroad R179</a>.</p>`));
   $("#modal-close").addEventListener("click", closeModal);
   $("#modal").addEventListener("click", (e) => { if (e.target.id === "modal") closeModal(); });
   $("#pr-close").addEventListener("click", closeProcessRunner);

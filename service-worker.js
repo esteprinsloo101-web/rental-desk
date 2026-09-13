@@ -1,5 +1,5 @@
 /* Rental Desk — shell cache for offline-ish PWA */
-const CACHE = "rental-desk-shell-v1";
+const CACHE = "rental-desk-shell-v2";
 const SHELL = [
   "./",
   "./index.html",
